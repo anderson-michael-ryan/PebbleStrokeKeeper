@@ -17,6 +17,8 @@ static TextLayer *header_text_layer;
 static TextLayer *body_text_layer;
 static TextLayer *label_text_layer;
 static TextLayer *total_text_layer;
+static TextLayer *putts_text_layer;
+static TextLayer *teeaccuracy_text_layer;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
@@ -25,6 +27,11 @@ static void update_text() {
   static char body_text[50];
   snprintf(body_text, sizeof(body_text), "%u", num_current_hole);
   text_layer_set_text(body_text_layer, body_text);
+
+  static char putt_text[50];
+  snprintf(putt_text, sizeof(putt_text), "%u", num_current_hole_putts);
+  text_layer_set_text(putts_text_layer, putt_text);  
+
   
   static char total_text[50];
   
@@ -225,6 +232,168 @@ static void subtract_from_score(ClickRecognizerRef recognizer,void *context){
   
 }
 
+// Add a putt to the hole
+static void add_putt_to_hole (ClickRecognizerRef recognizer, void *context) {
+  
+    switch(num_hole){
+    case 1:
+      num_hole1_putts++;
+      num_current_hole_putts = num_hole1_putts;
+    break;
+    case 2:
+      num_hole2_putts++;
+      num_current_hole_putts = num_hole2_putts;
+    break;
+    case 3:
+      num_hole3_putts++;
+      num_current_hole_putts = num_hole3_putts;
+    break;
+    case 4:
+      num_hole4_putts++;
+      num_current_hole_putts = num_hole4_putts;
+    break;
+    case 5:
+      num_hole5_putts++;
+      num_current_hole_putts = num_hole5_putts;
+    break;
+    case 6:
+      num_hole6_putts++;
+      num_current_hole_putts = num_hole6_putts;
+    break;
+    case 7:
+      num_hole7_putts++;
+      num_current_hole_putts = num_hole7_putts;
+    break;
+    case 8:
+      num_hole8_putts++;
+      num_current_hole_putts = num_hole8_putts;
+    break;
+    case 9:
+      num_hole9_putts++;
+      num_current_hole_putts = num_hole9_putts;
+    break;
+    case 10:
+      num_hole10_putts++;
+      num_current_hole_putts = num_hole10_putts;
+    break;
+    case 11:
+      num_hole11_putts++;
+      num_current_hole_putts = num_hole11_putts;
+    break;
+    case 12:
+      num_hole12_putts++;
+      num_current_hole_putts = num_hole12_putts;
+    break;
+    case 13:
+      num_hole13_putts++;
+      num_current_hole_putts = num_hole13_putts;
+    break;
+    case 14:
+      num_hole14_putts++;
+      num_current_hole_putts = num_hole14_putts;
+    break;
+    case 15:
+    num_hole15_putts++;
+      num_current_hole_putts = num_hole15_putts;
+    break;
+    case 16:
+      num_hole16_putts++;
+      num_current_hole_putts = num_hole16_putts;
+    break;
+    case 17:
+      num_hole17_putts++;
+      num_current_hole_putts = num_hole17_putts;
+    break;
+    case 18:
+      num_hole18_putts++;
+      num_current_hole_putts = num_hole18_putts;
+    break;
+  }
+  
+  update_text();
+}
+
+// Subtract a putt from the hole
+static void subtract_putt_from_hole (ClickRecognizerRef recognizer, void *context) {
+  
+    switch(num_hole){
+    case 1:
+      num_hole1_putts--;
+      num_current_hole_putts = num_hole1_putts;
+    break;
+    case 2:
+      num_hole2_putts--;
+      num_current_hole_putts = num_hole2_putts;
+    break;
+    case 3:
+      num_hole3_putts--;
+      num_current_hole_putts = num_hole3_putts;
+    break;
+    case 4:
+      num_hole4_putts--;
+      num_current_hole_putts = num_hole4_putts;
+    break;
+    case 5:
+      num_hole5_putts--;
+      num_current_hole_putts = num_hole5_putts;
+    break;
+    case 6:
+      num_hole6_putts--;
+      num_current_hole_putts = num_hole6_putts;
+    break;
+    case 7:
+      num_hole7_putts--;
+      num_current_hole_putts = num_hole7_putts;
+    break;
+    case 8:
+      num_hole8_putts--;
+      num_current_hole_putts = num_hole8_putts;
+    break;
+    case 9:
+      num_hole9_putts--;
+      num_current_hole_putts = num_hole9_putts;
+    break;
+    case 10:
+      num_hole10_putts--;
+      num_current_hole_putts = num_hole10_putts;
+    break;
+    case 11:
+      num_hole11_putts--;
+      num_current_hole_putts = num_hole11_putts;
+    break;
+    case 12:
+      num_hole12_putts--;
+      num_current_hole_putts = num_hole12_putts;
+    break;
+    case 13:
+      num_hole13_putts--;
+      num_current_hole_putts = num_hole13_putts;
+    break;
+    case 14:
+      num_hole14_putts--;
+      num_current_hole_putts = num_hole14_putts;
+    break;
+    case 15:
+    num_hole15_putts--;
+      num_current_hole_putts = num_hole15_putts;
+    break;
+    case 16:
+      num_hole16_putts--;
+      num_current_hole_putts = num_hole16_putts;
+    break;
+    case 17:
+      num_hole17_putts--;
+      num_current_hole_putts = num_hole17_putts;
+    break;
+    case 18:
+      num_hole18_putts--;
+      num_current_hole_putts = num_hole18_putts;
+    break;
+  }
+  
+  update_text();
+}
+
 // Skip back to the previous holes
 static void hole_backwards(ClickRecognizerRef recognizer,void *context){
   num_hole--;
@@ -237,57 +406,75 @@ static void hole_backwards(ClickRecognizerRef recognizer,void *context){
   switch(num_hole){
     case 1:
       num_current_hole = num_hole1;
+      num_current_hole_putts = num_hole1_putts;
     break;
     case 2:
       num_current_hole = num_hole2;
+      num_current_hole_putts = num_hole2_putts;
     break;
     case 3:
       num_current_hole = num_hole3;
+      num_current_hole_putts = num_hole3_putts;
     break;
     case 4:
       num_current_hole = num_hole4;
+      num_current_hole_putts = num_hole4_putts;
     break;
     case 5:
       num_current_hole = num_hole5;
+      num_current_hole_putts = num_hole5_putts;
     break;
     case 6:
       num_current_hole = num_hole6;
+      num_current_hole_putts = num_hole6_putts;
     break;
     case 7:
       num_current_hole = num_hole7;
+      num_current_hole_putts = num_hole7_putts;
     break;
     case 8:
       num_current_hole = num_hole8;
+      num_current_hole_putts = num_hole8_putts;
     break;
     case 9:
       num_current_hole = num_hole9;
+      num_current_hole_putts = num_hole9_putts;
     break;
     case 10:
       num_current_hole = num_hole10;
+      num_current_hole_putts = num_hole10_putts;
     break;
     case 11:
       num_current_hole = num_hole11;
+      num_current_hole_putts = num_hole11_putts;
     break;
     case 12:
       num_current_hole = num_hole12;
+      num_current_hole_putts = num_hole12_putts;
     break;
     case 13:
       num_current_hole = num_hole13;
+      num_current_hole_putts = num_hole12_putts;
     break;
     case 14:
       num_current_hole = num_hole14;
+      num_current_hole_putts = num_hole14_putts;
     break;
     case 15:
       num_current_hole = num_hole15;
+      num_current_hole_putts = num_hole15_putts;
     break;
     case 16:
       num_current_hole = num_hole16;
+      num_current_hole_putts = num_hole16_putts;
     break;
     case 17:
       num_current_hole = num_hole17;
+      num_current_hole_putts = num_hole17_putts;
     break;
     case 18:
       num_current_hole = num_hole18;
+      num_current_hole_putts = num_hole18_putts;
     break;
   }
  
@@ -308,57 +495,75 @@ static void hole_forward(ClickRecognizerRef recognizer,void *context){
   switch(num_hole){
     case 1:
       num_current_hole = num_hole1;
+      num_current_hole_putts = num_hole1_putts;
     break;
     case 2:
       num_current_hole = num_hole2;
+      num_current_hole_putts = num_hole2_putts;
     break;
     case 3:
       num_current_hole = num_hole3;
+      num_current_hole_putts = num_hole3_putts;
     break;
     case 4:
       num_current_hole = num_hole4;
+      num_current_hole_putts = num_hole4_putts;
     break;
     case 5:
       num_current_hole = num_hole5;
+      num_current_hole_putts = num_hole5_putts;
     break;
     case 6:
       num_current_hole = num_hole6;
+      num_current_hole_putts = num_hole6_putts;
     break;
     case 7:
       num_current_hole = num_hole7;
+      num_current_hole_putts = num_hole7_putts;
     break;
     case 8:
       num_current_hole = num_hole8;
+      num_current_hole_putts = num_hole8_putts;
     break;
     case 9:
       num_current_hole = num_hole9;
+      num_current_hole_putts = num_hole9_putts;
     break;
     case 10:
       num_current_hole = num_hole10;
+      num_current_hole_putts = num_hole10_putts;
     break;
     case 11:
       num_current_hole = num_hole11;
+      num_current_hole_putts = num_hole11_putts;
     break;
     case 12:
       num_current_hole = num_hole12;
+      num_current_hole_putts = num_hole12_putts;
     break;
     case 13:
       num_current_hole = num_hole13;
+      num_current_hole_putts = num_hole13_putts;
     break;
     case 14:
       num_current_hole = num_hole14;
+      num_current_hole_putts = num_hole14_putts;
     break;
     case 15:
       num_current_hole = num_hole15;
+      num_current_hole_putts = num_hole15_putts;
     break;
     case 16:
       num_current_hole = num_hole16;
+      num_current_hole_putts = num_hole16_putts;
     break;
     case 17:
       num_current_hole = num_hole17;
+      num_current_hole_putts = num_hole17_putts;
     break;
     case 18:
       num_current_hole = num_hole18;
+      num_current_hole_putts = num_hole18_putts;
     break;
   }
   
@@ -397,7 +602,9 @@ static void click_config_provider(void *context) {
   window_long_click_subscribe(BUTTON_ID_SELECT, repeat_interval_ms1, (ClickHandler) new_round, NULL);
   //window_long_click_subscribe(BUTTON_ID_DOWN, repeat_interval_ms1, (ClickHandler) course_overview, NULL);
   window_multi_click_subscribe(BUTTON_ID_SELECT, 2, 10, 0, true, hole_backwards);
-  
+
+  window_multi_click_subscribe(BUTTON_ID_UP, 2, 10, 0, true, (ClickHandler) add_putt_to_hole);
+  window_multi_click_subscribe(BUTTON_ID_DOWN, 2, 10, 0, true, (ClickHandler) subtract_putt_from_hole);
 }
 
 // set up the view's window and layers
@@ -421,7 +628,7 @@ static void window_load(Window *me) {
   text_layer_set_text_color(header_text_layer, GColorWhite);
   layer_add_child(layer, text_layer_get_layer(header_text_layer));
 
-  body_text_layer = text_layer_create(GRect(5, 60, 105, 46));
+  body_text_layer = text_layer_create(GRect(30, 60, 60, 49));
   text_layer_set_font(body_text_layer, fonts_get_system_font(FONT_KEY_LECO_38_BOLD_NUMBERS));
   text_layer_set_background_color(body_text_layer, GColorWhite);
   text_layer_set_text_alignment(body_text_layer, GTextAlignmentCenter);
@@ -443,6 +650,15 @@ static void window_load(Window *me) {
   text_layer_set_text(label_text_layer, "strokes on this hole");
   layer_add_child(layer, text_layer_get_layer(label_text_layer));
   
+  // add putts layer
+  putts_text_layer = text_layer_create(GRect(90, 60, 20, 49));
+  text_layer_set_background_color(putts_text_layer, GColorWhite);
+  text_layer_set_text_color(putts_text_layer, GColorJaegerGreen);
+  text_layer_set_text(putts_text_layer, "0");
+  text_layer_set_text_alignment(putts_text_layer, GTextAlignmentCenter);
+  text_layer_set_font(putts_text_layer, fonts_get_system_font(FONT_KEY_LECO_20_BOLD_NUMBERS));
+  layer_add_child(layer, text_layer_get_layer(putts_text_layer));
+
   printf("This is a rectangular display!");
   
 #elif defined(PBL_ROUND)
@@ -484,6 +700,14 @@ static void window_load(Window *me) {
   
   text_layer_set_background_color(label_text_layer, GColorClear);
   text_layer_set_text_color(label_text_layer, GColorJaegerGreen);
+
+  text_layer_set_background_color(putts_text_layer, GColorJaegerGreen);
+  text_layer_set_text_alignment(putts_text_layer, GTextAlignmentCenter);
+  text_layer_set_text_color(putts_text_layer, GColorWhite);
+
+  text_layer_set_background_color(teeaccuracy_text_layer, GColorJaegerGreen);
+  text_layer_set_text_alignment(teeaccuracy_text_layer, GTextAlignmentCenter);
+  text_layer_set_text_color(teeaccuracy_text_layer, GColorWhite);
   
   window_set_background_color(window, GColorMidnightGreen);
   
@@ -505,6 +729,14 @@ static void window_load(Window *me) {
   
   text_layer_set_background_color(label_text_layer, GColorClear);
   text_layer_set_text_color(label_text_layer, GColorWhite);
+
+  text_layer_set_background_color(putts_text_layer, GColorWhite);
+  text_layer_set_text_alignment(putts_text_layer, GTextAlignmentCenter);
+  text_layer_set_text_color(putts_text_layer, GColorBlack);
+  
+  text_layer_set_background_color(teeaccuracy_text_layer, GColorWhite);
+  text_layer_set_text_alignment(teeaccuracy_text_layer, GTextAlignmentCenter);
+  text_layer_set_text_color(teeaccuracy_text_layer, GColorBlack);
   
   window_set_background_color(window, GColorBlack);
   
@@ -515,8 +747,7 @@ static void window_load(Window *me) {
 
   // Set properties
   status_bar_layer_set_colors(s_status_bar, GColorMidnightGreen, GColorWhite);
-  status_bar_layer_set_separator_mode(s_status_bar, 
-                                            StatusBarLayerSeparatorModeDotted);
+  status_bar_layer_set_separator_mode(s_status_bar, StatusBarLayerSeparatorModeDotted);
 
   // Add to Window
   layer_add_child(layer, status_bar_layer_get_layer(s_status_bar));
@@ -530,6 +761,8 @@ static void window_unload(Window *window) {
   text_layer_destroy(body_text_layer);
   text_layer_destroy(total_text_layer);
   text_layer_destroy(label_text_layer);
+  text_layer_destroy(putts_text_layer);
+  text_layer_destroy(teeaccuracy_text_layer);  
 
   action_bar_layer_destroy(action_bar);
   
@@ -561,6 +794,28 @@ void window_save_scores(){
   persist_write_int(NUM_HOLE17_PKEY, num_hole17);
   persist_write_int(NUM_HOLE18_PKEY, num_hole18);
   
+  persist_write_int(NUM_CURRENT_HOLE_PUTTS_PKEY, num_current_hole_putts);
+  persist_write_int(NUM_HOLE_PUTTS_PKEY, num_hole_putts);
+  persist_write_int(NUM_HOLE1_PUTTS_PKEY, num_hole1_putts);
+  persist_write_int(NUM_HOLE2_PUTTS_PKEY, num_hole2_putts);
+  persist_write_int(NUM_HOLE3_PUTTS_PKEY, num_hole3_putts);
+  persist_write_int(NUM_HOLE4_PUTTS_PKEY, num_hole4_putts);
+  persist_write_int(NUM_HOLE5_PUTTS_PKEY, num_hole5_putts);
+  persist_write_int(NUM_HOLE6_PUTTS_PKEY, num_hole6_putts);
+  persist_write_int(NUM_HOLE7_PUTTS_PKEY, num_hole7_putts);
+  persist_write_int(NUM_HOLE8_PUTTS_PKEY, num_hole8_putts);
+  persist_write_int(NUM_HOLE9_PUTTS_PKEY, num_hole9_putts);
+  persist_write_int(NUM_HOLE10_PUTTS_PKEY, num_hole10_putts);
+  persist_write_int(NUM_HOLE11_PUTTS_PKEY, num_hole11_putts);
+  persist_write_int(NUM_HOLE12_PUTTS_PKEY, num_hole12_putts);
+  persist_write_int(NUM_HOLE13_PUTTS_PKEY, num_hole13_putts);
+  persist_write_int(NUM_HOLE14_PUTTS_PKEY, num_hole14_putts);
+  persist_write_int(NUM_HOLE15_PUTTS_PKEY, num_hole15_putts);
+  persist_write_int(NUM_HOLE16_PUTTS_PKEY, num_hole16_putts);
+  persist_write_int(NUM_HOLE17_PUTTS_PKEY, num_hole17_putts);
+  persist_write_int(NUM_HOLE18_PUTTS_PKEY, num_hole18_putts);
+
+  
 }
 
 void window_push(){
@@ -588,11 +843,32 @@ void window_push(){
   num_hole17 = persist_exists(NUM_HOLE17_PKEY) ? persist_read_int(NUM_HOLE17_PKEY) : NUM_HOLE17_DEFAULT;
   num_hole18 = persist_exists(NUM_HOLE18_PKEY) ? persist_read_int(NUM_HOLE18_PKEY) : NUM_HOLE18_DEFAULT;
   
+  num_current_hole_putts = persist_exists(NUM_CURRENT_HOLE_PUTTS_PKEY) ? persist_read_int(NUM_CURRENT_HOLE_PUTTS_PKEY) : NUM_CURRENT_HOLE_PUTTS_DEFAULT;
+  num_hole_putts = persist_exists(NUM_HOLE_PUTTS_PKEY) ? persist_read_int(NUM_HOLE_PUTTS_PKEY) : NUM_HOLE_PUTTS_DEFAULT;
+  num_hole1_putts = persist_exists(NUM_HOLE1_PUTTS_PKEY) ? persist_read_int(NUM_HOLE1_PUTTS_PKEY) : NUM_HOLE1_PUTTS_DEFAULT;
+  num_hole2_putts = persist_exists(NUM_HOLE2_PUTTS_PKEY) ? persist_read_int(NUM_HOLE2_PUTTS_PKEY) : NUM_HOLE2_PUTTS_DEFAULT;
+  num_hole3_putts = persist_exists(NUM_HOLE3_PUTTS_PKEY) ? persist_read_int(NUM_HOLE3_PUTTS_PKEY) : NUM_HOLE3_PUTTS_DEFAULT;
+  num_hole4_putts = persist_exists(NUM_HOLE4_PUTTS_PKEY) ? persist_read_int(NUM_HOLE4_PUTTS_PKEY) : NUM_HOLE4_PUTTS_DEFAULT;
+  num_hole5_putts = persist_exists(NUM_HOLE5_PUTTS_PKEY) ? persist_read_int(NUM_HOLE5_PUTTS_PKEY) : NUM_HOLE5_PUTTS_DEFAULT;
+  num_hole6_putts = persist_exists(NUM_HOLE6_PUTTS_PKEY) ? persist_read_int(NUM_HOLE6_PUTTS_PKEY) : NUM_HOLE6_PUTTS_DEFAULT;
+  num_hole7_putts = persist_exists(NUM_HOLE7_PUTTS_PKEY) ? persist_read_int(NUM_HOLE7_PUTTS_PKEY) : NUM_HOLE7_PUTTS_DEFAULT;
+  num_hole8_putts = persist_exists(NUM_HOLE8_PUTTS_PKEY) ? persist_read_int(NUM_HOLE8_PUTTS_PKEY) : NUM_HOLE8_PUTTS_DEFAULT;
+  num_hole9_putts = persist_exists(NUM_HOLE9_PUTTS_PKEY) ? persist_read_int(NUM_HOLE9_PUTTS_PKEY) : NUM_HOLE9_PUTTS_DEFAULT;
+  num_hole10_putts = persist_exists(NUM_HOLE10_PUTTS_PKEY) ? persist_read_int(NUM_HOLE10_PUTTS_PKEY) : NUM_HOLE10_PUTTS_DEFAULT;
+  num_hole11_putts = persist_exists(NUM_HOLE11_PUTTS_PKEY) ? persist_read_int(NUM_HOLE11_PUTTS_PKEY) : NUM_HOLE11_PUTTS_DEFAULT;
+  num_hole12_putts = persist_exists(NUM_HOLE12_PUTTS_PKEY) ? persist_read_int(NUM_HOLE12_PUTTS_PKEY) : NUM_HOLE12_PUTTS_DEFAULT;
+  num_hole13_putts = persist_exists(NUM_HOLE13_PUTTS_PKEY) ? persist_read_int(NUM_HOLE13_PUTTS_PKEY) : NUM_HOLE13_PUTTS_DEFAULT;
+  num_hole14_putts = persist_exists(NUM_HOLE14_PUTTS_PKEY) ? persist_read_int(NUM_HOLE14_PUTTS_PKEY) : NUM_HOLE14_PUTTS_DEFAULT;
+  num_hole15_putts = persist_exists(NUM_HOLE15_PUTTS_PKEY) ? persist_read_int(NUM_HOLE15_PUTTS_PKEY) : NUM_HOLE15_PUTTS_DEFAULT;
+  num_hole16_putts = persist_exists(NUM_HOLE16_PUTTS_PKEY) ? persist_read_int(NUM_HOLE16_PUTTS_PKEY) : NUM_HOLE16_PUTTS_DEFAULT;
+  num_hole17_putts = persist_exists(NUM_HOLE17_PUTTS_PKEY) ? persist_read_int(NUM_HOLE17_PUTTS_PKEY) : NUM_HOLE17_PUTTS_DEFAULT;
+  num_hole18_putts = persist_exists(NUM_HOLE18_PUTTS_PKEY) ? persist_read_int(NUM_HOLE18_PUTTS_PKEY) : NUM_HOLE18_PUTTS_DEFAULT;
+
+  
+  
   update_text();
 
 }
-
-
 
 static void init(void) {
   action_icon_plus = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_ACTION_ICON_PLUS);
@@ -628,6 +904,28 @@ static void init(void) {
   num_hole17 = persist_exists(NUM_HOLE17_PKEY) ? persist_read_int(NUM_HOLE17_PKEY) : NUM_HOLE17_DEFAULT;
   num_hole18 = persist_exists(NUM_HOLE18_PKEY) ? persist_read_int(NUM_HOLE18_PKEY) : NUM_HOLE18_DEFAULT;
   
+  num_current_hole_putts = persist_exists(NUM_CURRENT_HOLE_PUTTS_PKEY) ? persist_read_int(NUM_CURRENT_HOLE_PUTTS_PKEY) : NUM_CURRENT_HOLE_PUTTS_DEFAULT;
+  num_hole_putts = persist_exists(NUM_HOLE_PUTTS_PKEY) ? persist_read_int(NUM_HOLE_PUTTS_PKEY) : NUM_HOLE_PUTTS_DEFAULT;
+  num_hole1_putts = persist_exists(NUM_HOLE1_PUTTS_PKEY) ? persist_read_int(NUM_HOLE1_PUTTS_PKEY) : NUM_HOLE1_PUTTS_DEFAULT;
+  num_hole2_putts = persist_exists(NUM_HOLE2_PUTTS_PKEY) ? persist_read_int(NUM_HOLE2_PUTTS_PKEY) : NUM_HOLE2_PUTTS_DEFAULT;
+  num_hole3_putts = persist_exists(NUM_HOLE3_PUTTS_PKEY) ? persist_read_int(NUM_HOLE3_PUTTS_PKEY) : NUM_HOLE3_PUTTS_DEFAULT;
+  num_hole4_putts = persist_exists(NUM_HOLE4_PUTTS_PKEY) ? persist_read_int(NUM_HOLE4_PUTTS_PKEY) : NUM_HOLE4_PUTTS_DEFAULT;
+  num_hole5_putts = persist_exists(NUM_HOLE5_PUTTS_PKEY) ? persist_read_int(NUM_HOLE5_PUTTS_PKEY) : NUM_HOLE5_PUTTS_DEFAULT;
+  num_hole6_putts = persist_exists(NUM_HOLE6_PUTTS_PKEY) ? persist_read_int(NUM_HOLE6_PUTTS_PKEY) : NUM_HOLE6_PUTTS_DEFAULT;
+  num_hole7_putts = persist_exists(NUM_HOLE7_PUTTS_PKEY) ? persist_read_int(NUM_HOLE7_PUTTS_PKEY) : NUM_HOLE7_PUTTS_DEFAULT;
+  num_hole8_putts = persist_exists(NUM_HOLE8_PUTTS_PKEY) ? persist_read_int(NUM_HOLE8_PUTTS_PKEY) : NUM_HOLE8_PUTTS_DEFAULT;
+  num_hole9_putts = persist_exists(NUM_HOLE9_PUTTS_PKEY) ? persist_read_int(NUM_HOLE9_PUTTS_PKEY) : NUM_HOLE9_PUTTS_DEFAULT;
+  num_hole10_putts = persist_exists(NUM_HOLE10_PUTTS_PKEY) ? persist_read_int(NUM_HOLE10_PUTTS_PKEY) : NUM_HOLE10_PUTTS_DEFAULT;
+  num_hole11_putts = persist_exists(NUM_HOLE11_PUTTS_PKEY) ? persist_read_int(NUM_HOLE11_PUTTS_PKEY) : NUM_HOLE11_PUTTS_DEFAULT;
+  num_hole12_putts = persist_exists(NUM_HOLE12_PUTTS_PKEY) ? persist_read_int(NUM_HOLE12_PUTTS_PKEY) : NUM_HOLE12_PUTTS_DEFAULT;
+  num_hole13_putts = persist_exists(NUM_HOLE13_PUTTS_PKEY) ? persist_read_int(NUM_HOLE13_PUTTS_PKEY) : NUM_HOLE13_PUTTS_DEFAULT;
+  num_hole14_putts = persist_exists(NUM_HOLE14_PUTTS_PKEY) ? persist_read_int(NUM_HOLE14_PUTTS_PKEY) : NUM_HOLE14_PUTTS_DEFAULT;
+  num_hole15_putts = persist_exists(NUM_HOLE15_PUTTS_PKEY) ? persist_read_int(NUM_HOLE15_PUTTS_PKEY) : NUM_HOLE15_PUTTS_DEFAULT;
+  num_hole16_putts = persist_exists(NUM_HOLE16_PUTTS_PKEY) ? persist_read_int(NUM_HOLE16_PUTTS_PKEY) : NUM_HOLE16_PUTTS_DEFAULT;
+  num_hole17_putts = persist_exists(NUM_HOLE17_PUTTS_PKEY) ? persist_read_int(NUM_HOLE17_PUTTS_PKEY) : NUM_HOLE17_PUTTS_DEFAULT;
+  num_hole18_putts = persist_exists(NUM_HOLE18_PUTTS_PKEY) ? persist_read_int(NUM_HOLE18_PUTTS_PKEY) : NUM_HOLE18_PUTTS_DEFAULT;
+
+  
   window_stack_push(window,true);
 }
 
@@ -658,6 +956,27 @@ static void deinit(void){
   persist_write_int(NUM_HOLE17_PKEY, num_hole17);
   persist_write_int(NUM_HOLE18_PKEY, num_hole18);
 
+  persist_write_int(NUM_CURRENT_HOLE_PUTTS_PKEY, num_current_hole_putts);
+  persist_write_int(NUM_HOLE_PUTTS_PKEY, num_hole_putts);
+  persist_write_int(NUM_HOLE1_PUTTS_PKEY, num_hole1_putts);
+  persist_write_int(NUM_HOLE2_PUTTS_PKEY, num_hole2_putts);
+  persist_write_int(NUM_HOLE3_PUTTS_PKEY, num_hole3_putts);
+  persist_write_int(NUM_HOLE4_PUTTS_PKEY, num_hole4_putts);
+  persist_write_int(NUM_HOLE5_PUTTS_PKEY, num_hole5_putts);
+  persist_write_int(NUM_HOLE6_PUTTS_PKEY, num_hole6_putts);
+  persist_write_int(NUM_HOLE7_PUTTS_PKEY, num_hole7_putts);
+  persist_write_int(NUM_HOLE8_PUTTS_PKEY, num_hole8_putts);
+  persist_write_int(NUM_HOLE9_PUTTS_PKEY, num_hole9_putts);
+  persist_write_int(NUM_HOLE10_PUTTS_PKEY, num_hole10_putts);
+  persist_write_int(NUM_HOLE11_PUTTS_PKEY, num_hole11_putts);
+  persist_write_int(NUM_HOLE12_PUTTS_PKEY, num_hole12_putts);
+  persist_write_int(NUM_HOLE13_PUTTS_PKEY, num_hole13_putts);
+  persist_write_int(NUM_HOLE14_PUTTS_PKEY, num_hole14_putts);
+  persist_write_int(NUM_HOLE15_PUTTS_PKEY, num_hole15_putts);
+  persist_write_int(NUM_HOLE16_PUTTS_PKEY, num_hole16_putts);
+  persist_write_int(NUM_HOLE17_PUTTS_PKEY, num_hole17_putts);
+  persist_write_int(NUM_HOLE18_PUTTS_PKEY, num_hole18_putts);
+  
   gbitmap_destroy(action_icon_plus);
   gbitmap_destroy(action_icon_minus);
   gbitmap_destroy(action_icon_retry);
